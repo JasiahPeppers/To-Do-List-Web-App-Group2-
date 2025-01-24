@@ -16,6 +16,6 @@ A web-based To-Do List application allowing users to effectivley manage and trac
 
 
 ## All Members 
--Will be using GitHub to share code, make changes if needed, testing
+-Will be using GitHub to collaborate, share code, make changes if needed, testing
 
 
