@@ -1,2 +1,2 @@
-# To-Do-List-Web-App-Group2-
-A web app for managing tasks
+# To-Do-List-Web-App-Next Milestone-
+A web app for managing/tracking tasks
