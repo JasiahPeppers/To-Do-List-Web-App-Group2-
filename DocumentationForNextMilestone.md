@@ -8,7 +8,7 @@ A web-based To-Do List application allowing users to effectivley manage and trac
 ## Brett Lewis (Backend development): 
  - **Technologies**: Python, Flask, SQLite, API ,
  - **Hosting**: Render (backend)
- - Will use Render to host Flask/Python to create an API for communication with the frontend
+ - Will use Render to host Flask/Python to create an API for communication with the frontend and SQLite database
 ## Samantha Treasure (Video editing/presentation) 
  - Creating video presentations, improve editing, transitions, visuals 
 ## Jimmy Nguyen 
