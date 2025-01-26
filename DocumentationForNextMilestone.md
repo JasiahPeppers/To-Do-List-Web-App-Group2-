@@ -1,6 +1,7 @@
 # To-Do List Web app Project | Next Milestone 
 ## Project desc: 
 A web-based To-Do List application allowing users to effectivley manage and track tasks. Features includes creating, deleting, prioritzing, editing, adding dates and toggling between incomple and complete tasks. 
+## Jasiah Peppers (Frontend Development): 
  - **Technologies**: HTML, CSS, JavaScript, Fetch API
  - **Hosting**: Infinity Free (frontend)
  - Implementing features like task creation, deletion, prioritzation, editing, and toggling between complete and incomplete tasks
