@@ -10,7 +10,7 @@ A web-based To-Do List application allowing users to effectivley manage and trac
  - **Hosting**: Render (backend)
  - Will use Render to host Flask/Python to create an API for communication with the frontend
 ## Samantha Treasure (Video editing/presentation) 
- - Creating video presentations, improve editing and visuals 
+ - Creating video presentations, improve editing, transitions, visuals 
 ## Jimmy Nguyen 
  - Organizing project timeline, updating Gantt chart/documentation 
 
