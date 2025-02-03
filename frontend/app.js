@@ -24,7 +24,7 @@ let taskCount = 0; // For numbering the tasks
 
 // GET request to fetch tasks from server    
 // Fetch tasks for today/tomorrow
-fetch('http://your-backend-url/tasks')
+fetch('http://127.0.0.1:5000/tasks')
 .then(response => response.json())
 .then(tasks => {
 tasks.forEach(task => {
@@ -76,7 +76,7 @@ listItem.innerHTML = `
 `;
 
 // POST: Send new task to the server
-fetch('http://your-backend-url/tasks', {
+fetch('http://127.0.0.1:5000/tasks', {
 method: 'POST',
 headers: {
 'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ actionButtons.style.display = isActionButtonsVisible ? 'none' : 'inline-block';
 const deleteButton = listItem.querySelector('.delete-btn');
 deleteButton.addEventListener('click', function() {
 // DELETE: Send request to delete task from the server
-fetch(`http://your-backend-url/tasks/${taskCount}`, {
+fetch(`http://127.0.0.1:5000/tasks/${taskId}`, {
 method: 'DELETE',
 })
 .then(response => response.json())
@@ -137,7 +137,7 @@ completeButton.style.display = 'none';
 incompleteButton.style.display = 'inline-block'; 
 
 // PUT request to update task status to 'completed' on the server
-fetch(`http://your-backend-url/tasks/${taskCount}`, {
+fetch(`http://127.0.0.1:5000/tasks/${taskId}}`, {
 method: 'PUT',
 headers: {
 'Content-Type': 'application/json',
@@ -189,7 +189,7 @@ textarea.replaceWith(descElement); // Replace textarea with updated description
 descElement.style.display = 'block'; // Show the updated description again
 
 // PUT request to update task description on the server
-fetch(`http://your-backend-url/tasks/${taskCount}`, {
+fetch(`http://127.0.0.1:5000/tasks/${taskId}`, {
 method: 'PUT',
 headers: {
 'Content-Type': 'application/json',
