@@ -114,7 +114,7 @@ actionButtons.style.display = isActionButtonsVisible ? 'none' : 'inline-block';
 const deleteButton = listItem.querySelector('.delete-btn');
 deleteButton.addEventListener('click', function() {
 // DELETE: Send request to delete task from the server
-fetch(`http://127.0.0.1:5000/tasks/${taskId}`, {
+fetch(`http://127.0.0.1:5000/tasks/${task.id}`, {
 method: 'DELETE',
 })
 .then(response => response.json())
@@ -137,7 +137,7 @@ completeButton.style.display = 'none';
 incompleteButton.style.display = 'inline-block'; 
 
 // PUT request to update task status to 'completed' on the server
-fetch(`http://127.0.0.1:5000/tasks/${taskId}}`, {
+fetch(`http://127.0.0.1:5000/tasks/${task.id}`, {
 method: 'PUT',
 headers: {
 'Content-Type': 'application/json',
