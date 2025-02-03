@@ -5,15 +5,14 @@ from models import db, Task  # Import db and Task from models
 from routes import list_routes
 
 app = Flask(__name__)
+CORS(app, origins=["https://todolistapp.infy.uk/"])  # <-- Allow only requests from a specific frontend origin
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize the database (using the db instance)
 db.init_app(app)
-
-#allows cross communication
-CORS(app)
 
 #from routes.py for all the route methods
 list_routes(app)
