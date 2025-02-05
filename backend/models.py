@@ -7,7 +7,7 @@ class Task(db.Model):
     task = db.Column(db.String(50), nullable=True) 
     desc = db.Column(db.String(255), nullable=True)  
     priority = db.Column(db.String(50), nullable=True)  
-    status = db.Column(db.Boolean, default=True)  
+    status = db.Column(db.String(50), default="incomplete")
     task_date = db.Column(db.String(20), nullable=True)  
 
     def to_dictionary(self):
