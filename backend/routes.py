@@ -51,10 +51,11 @@ def add_task():
 def update_task(task_id):
     data = request.json
     task = Task.query.get_or_404(task_id)
-    
-    # Ensure that the 'status' is handled as a string
+    task.task = data.get('task', task.task)
+    task.desc = data.get('desc', task.desc)
+    task.priority = data.get('priority', task.priority)
     task.status = data.get('status', task.status)
-    
+    task.task_date = data.get('task_date', task.task_date)
     db.session.commit()
     return jsonify({'message': 'Task updated successfully'}), 200
 
