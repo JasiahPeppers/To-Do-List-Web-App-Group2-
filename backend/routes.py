@@ -49,11 +49,22 @@ def add_task():
 
 @app.route('/tasks/<int:task_id>', methods=['PUT'])
 def update_task(task_id):
-    data = request.json
-    task = Task.query.get_or_404(task_id)
-    task.task = data.get('task', task.task)
-    task.desc = data.get('desc', task.desc)
-    task.task_date = data.get('task_date', task.task_date)
+data = request.json
+task = Task.query.get_or_404(task_id)
+    
+task.task = data.get('task', task.task)
+task.desc = data.get('desc', task.desc)
+task.priority = data.get('priority', task.priority)
+task.task_date = data.get('task_date', task.task_date)
+    
+    # Check if status is 'completed', set it as True (Boolean)
+if data.get('status') == 'completed':
+task.status = True  # Mark as completed (Boolean True)
+elif data.get('status') == 'incomplete':
+task.status = False  # Mark as incomplete (Boolean False)
+db.session.commit()
+return jsonify({'message': 'Task updated successfully'}), 200
+
     
 if data.get('status') =='completed';
 task.status =True # this is mark as completed set to true
