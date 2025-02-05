@@ -53,10 +53,14 @@ def update_task(task_id):
     task = Task.query.get_or_404(task_id)
     task.task = data.get('task', task.task)
     task.desc = data.get('desc', task.desc)
-    task.priority = data.get('priority', task.priority)
-    task.status = data.get('status', task.status)
     task.task_date = data.get('task_date', task.task_date)
-    db.session.commit()
+    
+if data.get('status') =='completed';
+task.status =True # this is mark as completed set to true
+elif data.get('status') == 'incomplete': 
+task.status = False # this is mark as compelte set to false
+    
+db.session.commit()
     return jsonify({'message': 'Task updated successfully'}), 200
 
 @app.route('/tasks/<int:id>', methods=['DELETE'])
