@@ -2,29 +2,39 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from models import db, Task  # Import db and Task from models
+from models import db, Task
 from routes import list_routes
+import os
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
+# Specify absolute path for the SQLite database
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(BASE_DIR, "tasks.db")}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Initialize the database (using the db instance)
+# Initialize the database
 db.init_app(app)
 
-# Allows cross communication
-CORS(app)  
+# Enable Cross-Origin Resource Sharing
+CORS(app)
 
-
-# From routes.py for all the route methods
+# Add the routes
 list_routes(app)
 
+# Database initialization
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()  # Create the table
-        print("Database created successfully")
-    app.run()  #app.run(debug=True)
+    try:
+        with app.app_context():
+            print("Creating the database...")
+            db.create_all()  # Create tables
+            print("Database and tables created.")
+    except Exception as e:
+        print(f"Error creating database: {e}")
+    
+    # Start the Flask app
+    app.run()
+
 
 # This imports everything, points to where the DB is, starts or creates the database 
 # when the Flask program is started, and is the starting point of the backend.
