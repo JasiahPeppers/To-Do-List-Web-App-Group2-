@@ -23,7 +23,7 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()  # Create the table
         print("Database created successfully")
-    app.run(debug=True)
+    app.run()
 
 # This imports everything, points to where the DB is, starts or creates the database 
 # when the Flask program is started, and is the starting point of the backend.
