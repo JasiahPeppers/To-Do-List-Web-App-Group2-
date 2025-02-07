@@ -9,7 +9,7 @@ import os
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///tasks.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize the database (using the db instance)
