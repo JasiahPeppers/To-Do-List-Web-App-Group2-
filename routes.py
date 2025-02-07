@@ -16,7 +16,7 @@ def list_routes(app):
             task=data['task'],
             desc=data.get('desc'),
             priority=data.get('priority'),
-            status=data.get('status', True)
+            status=data.get('status', True),
             task_date=data.get('task_date')
         )
         db.session.add(new_task)
