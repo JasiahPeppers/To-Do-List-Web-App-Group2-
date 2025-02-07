@@ -24,8 +24,11 @@ list_routes(app)
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()  # Create the table
-        print("Database created successfully")
+         try:
+            db.create_all()  
+            print("Database created successfully")
+        except Exception as e:
+            print(f"Error creating database: {e}")
     app.run()
 
 # This imports everything, points to where the DB is, starts or creates the database 
