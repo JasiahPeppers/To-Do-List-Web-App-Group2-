@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from models import db, Task
 
-def list_routes(app):  # Pass the app instance into the function
+    def list_routes(app):  # Pass the app instance into the function
 
     # GET route - Fetch all tasks
     @app.route('/tasks', methods=['GET'])
