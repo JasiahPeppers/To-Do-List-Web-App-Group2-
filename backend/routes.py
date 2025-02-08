@@ -10,32 +10,20 @@ def list_routes(app):  # Pass the app instance into the function
         return jsonify([task.to_dictionary() for task in tasks])  # Use to_dictionary to return all task details
 
     # POST route - Add a new task
-   @app.route('/tasks', methods=['POST'])
-def add_task():
-    task_data = request.json
-    print(f"Received task data: {task_data}")  # Debugging line
+    @app.route('/tasks', methods=['POST'])
+    def add_task():
+        task_data = request.json
+        print(f"Received task data: {task_data}")  # Debugging line
 
-    # Validate required fields
-    if not task_data.get('task') or not task_data.get('description'):
-        return jsonify({'message': 'Task and description are required'}), 400
+        # Validate required fields
+        if not task_data.get('task') or not task_data.get('description'):
+            return jsonify({'message': 'Task and description are required'}), 400
 
-    new_task = Task(
-        task=task_data['task'],
-        description=task_data['description'],
-        priority=task_data.get('priority'),
-        task_date=task_data.get('task_date')
-    )
-    db.session.add(new_task)
-    db.session.commit()
-    return jsonify({'message': 'Task added'}), 201
-
-
-        # You can add more fields here if needed (e.g., priority, task_date)
         new_task = Task(
             task=task_data['task'],
             description=task_data['description'],
-            priority=task_data.get('priority'),  # Optional
-            task_date=task_data.get('task_date')  # Optional
+            priority=task_data.get('priority'),
+            task_date=task_data.get('task_date')
         )
         db.session.add(new_task)
         db.session.commit()
@@ -60,3 +48,4 @@ def add_task():
             db.session.commit()
             return jsonify({'message': 'Task deleted'})
         return jsonify({'message': 'Task not found'}), 404
+
