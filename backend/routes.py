@@ -12,7 +12,7 @@ def get_tasks():
 @app.route('/tasks', methods=['POST'])
 def add_task():
     task_data = request.json
-    new_task = Task(description=task_data['description'], due_date=task_data['due_date'])
+    new_task = Task(task=task_data['task'], description=task_data['description'])  # Add 'task' instead of 'description'
     db.session.add(new_task)
     db.session.commit()
     return jsonify({'message': 'Task added'}), 201
