@@ -4,7 +4,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from backend.models import db, Task
-from routes import list_routes
+from backend.routes import list_routes
 
 
 app = Flask(__name__)
@@ -16,8 +16,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize the database
 db.init_app(app)
-# Import routes.py (which is in the backend folder)
-from backend import routes 
+
 # Enable Cross-Origin Resource Sharing
 CORS(app)
 
