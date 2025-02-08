@@ -1,4 +1,4 @@
-from app import app, db
+from .app import app, db
 from model import Task
 from flask import request, jsonify
 
