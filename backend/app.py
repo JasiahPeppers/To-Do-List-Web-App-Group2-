@@ -27,6 +27,12 @@ if __name__ == '__main__':
         with app.app_context():
             print("Creating the database...")
             db.create_all()  # Create tables
+            
+            # Check if the database file exists
+            if os.path.exists('tasks.db'):
+                print("Database file exists!")
+            else:
+                print("Database file does NOT exist.")
             print("Database and tables created.")
     except Exception as e:
         print(f"Error creating database: {e}")
