@@ -1,7 +1,7 @@
 # routes.py
 
 from flask import request, jsonify
-from backend.models import db, Task
+from models import db, Task
 
 def list_routes(app):  # Pass the app instance into the function
 
