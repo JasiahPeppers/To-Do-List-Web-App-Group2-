@@ -13,7 +13,7 @@ def list_routes(app):  # Pass the app instance into the function
     @app.route('/tasks', methods=['POST'])
     def add_task():
         task_data = request.json
-        
+        print(f"Received task data: {task_data}")  # Debugging line
         # Validate required fields
         if not task_data.get('task') or not task_data.get('description'):
             return jsonify({'message': 'Task and description are required'}), 400
