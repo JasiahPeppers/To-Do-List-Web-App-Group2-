@@ -16,7 +16,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize the database
 db.init_app(app)
-
+# Import routes.py (which is in the backend folder)
+from backend import routes 
 # Enable Cross-Origin Resource Sharing
 CORS(app)
 
