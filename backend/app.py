@@ -3,7 +3,7 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from models import db, Task
+from backend.models import db, Task
 from routes import list_routes
 
 
