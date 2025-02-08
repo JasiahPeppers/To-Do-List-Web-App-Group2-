@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from .models import db, Task
-from .routes import list_routes  
+from .routes import list_routes  # Import the function that registers routes
 
 app = Flask(__name__)
 
@@ -18,8 +18,8 @@ db.init_app(app)
 # Enable Cross-Origin Resource Sharing (CORS)
 CORS(app)
 
-# Register the routes as a Blueprint
-app.register_blueprint(list_routes)
+# Call list_routes to register the routes
+list_routes(app)  # Pass app into the function to register the routes
 
 # Database initialization and Flask app start
 if __name__ == '__main__':
@@ -32,4 +32,4 @@ if __name__ == '__main__':
         print(f"Error creating database: {e}")
     
     # Start the Flask app
-    app.run(debug=True)  # You might want to run it in debug mode during development
+    app.run(debug=True)  # Running in debug mode during development
