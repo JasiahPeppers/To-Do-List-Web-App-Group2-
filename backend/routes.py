@@ -1,6 +1,6 @@
 # backend/routes.py
 
-from backend.app import db  # Import db from app
+from .app import app, db  # Import db from app
 from model import Task
 from flask import Blueprint, request, jsonify
 
