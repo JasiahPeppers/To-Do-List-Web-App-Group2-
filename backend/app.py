@@ -2,8 +2,8 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from backend.models import db, Task
-from backend.routes import list_routes  # Import your Blueprint
+from .models import db, Task
+from .routes import list_routes  
 
 app = Flask(__name__)
 
