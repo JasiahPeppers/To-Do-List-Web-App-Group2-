@@ -2,14 +2,14 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from models import db, Task
+from backend.models import db, Task
 from routes import list_routes # Import the function that registers routes
 
 app = Flask(__name__)
 
 # Specify absolute path for the SQLite database
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////data/tasks.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize the database

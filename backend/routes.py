@@ -1,5 +1,3 @@
-# routes.py
-
 from flask import request, jsonify
 from models import db, Task
 
@@ -9,23 +7,46 @@ def list_routes(app):  # Pass the app instance into the function
     @app.route('/tasks', methods=['GET'])
     def get_tasks():
         tasks = Task.query.all()
-        return jsonify([task.description for task in tasks])
+        return jsonify([task.to_dictionary() for task in tasks])  # Use to_dictionary to return all task details
 
     # POST route - Add a new task
-    @app.route('/tasks', methods=['POST'])
-    def add_task():
-        task_data = request.json
-        new_task = Task(task=task_data['task'], description=task_data['description'])
+   @app.route('/tasks', methods=['POST'])
+def add_task():
+    task_data = request.json
+    print(f"Received task data: {task_data}")  # Debugging line
+
+    # Validate required fields
+    if not task_data.get('task') or not task_data.get('description'):
+        return jsonify({'message': 'Task and description are required'}), 400
+
+    new_task = Task(
+        task=task_data['task'],
+        description=task_data['description'],
+        priority=task_data.get('priority'),
+        task_date=task_data.get('task_date')
+    )
+    db.session.add(new_task)
+    db.session.commit()
+    return jsonify({'message': 'Task added'}), 201
+
+
+        # You can add more fields here if needed (e.g., priority, task_date)
+        new_task = Task(
+            task=task_data['task'],
+            description=task_data['description'],
+            priority=task_data.get('priority'),  # Optional
+            task_date=task_data.get('task_date')  # Optional
+        )
         db.session.add(new_task)
         db.session.commit()
         return jsonify({'message': 'Task added'}), 201
 
-    # PUT route - Mark a task as completed
+    # PUT route - Mark a task as completed (change status field)
     @app.route('/tasks/<int:task_id>/complete', methods=['PUT'])
     def complete_task(task_id):
         task = Task.query.get(task_id)
         if task:
-            task.completed = True
+            task.status = False  # Mark as completed by setting status to False
             db.session.commit()
             return jsonify({'message': 'Task marked as complete'})
         return jsonify({'message': 'Task not found'}), 404
@@ -39,9 +60,3 @@ def list_routes(app):  # Pass the app instance into the function
             db.session.commit()
             return jsonify({'message': 'Task deleted'})
         return jsonify({'message': 'Task not found'}), 404
-
-
-
-    # Basic routes for add, update, and delete. Might need a few tweaks but should be close generally.
-    # May have to add more for more functionality, but for now, I'm keeping it basic.
-
