@@ -12,10 +12,11 @@ def get_tasks():
 @app.route('/tasks', methods=['POST'])
 def add_task():
     task_data = request.json
-    new_task = Task(task=task_data['task'], description=task_data['description'])  # Add 'task' instead of 'description'
+    new_task = Task(task=task_data['task'], description=task_data['description'])  # Task, not description
     db.session.add(new_task)
     db.session.commit()
     return jsonify({'message': 'Task added'}), 201
+
 
 # PUT route - Mark a task as completed
 @app.route('/tasks/<int:task_id>/complete', methods=['PUT'])
