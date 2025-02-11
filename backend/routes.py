@@ -1,14 +1,8 @@
-from flask import Flask, jsonify, request
-from flask_sqlalchemy import SQLAlchemy
-from models import db, Task  # Assuming you're importing db and Task from models.py
+from flask import jsonify, request
+from models import db, Task  # Import db and Task model from models.py
+from app import app  # Import the app from the main app.py file to register the routes
 
-app = Flask(__name__)
-
-# Make sure your Flask app is correctly configured with the database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db.init_app(app)
-
+# GET and POST methods for tasks
 @app.route('/tasks', methods=['GET', 'POST'])
 def tasks():
     if request.method == 'GET':
@@ -28,6 +22,7 @@ def tasks():
         db.session.commit()
         return jsonify(new_task.to_dictionary()), 201  # Return the newly created task
 
+# PUT and DELETE methods for task by id
 @app.route('/tasks/<int:id>', methods=['PUT', 'DELETE'])
 def task(id):
     task = Task.query.get_or_404(id)
@@ -43,6 +38,3 @@ def task(id):
         db.session.delete(task)
         db.session.commit()
         return '', 204
-
-if __name__ == '__main__':
-    app.run(debug=True)
