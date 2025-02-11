@@ -3,6 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import db, Task
+from flask_migrate import Migrate
 from routes import list_routes  # Import the function that registers routes
 
 app = Flask(__name__)
