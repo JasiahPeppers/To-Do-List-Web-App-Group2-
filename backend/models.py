@@ -1,10 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
 
+# Initialize db globally
 db = SQLAlchemy()
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    task = db.Column(db.String(50), nullable=False)  # Task name should likely be required
+    task = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(255), nullable=True)
     priority = db.Column(db.String(50), nullable=True)
     status = db.Column(db.Boolean, default=True)  # Default to True (e.g., task is active)
@@ -26,6 +27,3 @@ class Task(db.Model):
             "status": self.status,
             "task_date": self.task_date
         }
-
-
-# This defines what's in the table and then turns it into a dictionary for easier JSON handling.
