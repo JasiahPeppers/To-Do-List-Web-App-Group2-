@@ -6,7 +6,7 @@ from models import db, Task  # Import the Task model after db initialization
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://todolistapp.infy.uk/?i=1"])
 # Configure SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Optional but good practice
