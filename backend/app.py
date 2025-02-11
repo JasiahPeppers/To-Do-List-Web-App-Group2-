@@ -1,13 +1,11 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-import os
 
+# Initialize Flask app
 app = Flask(__name__)
-
-# Enable CORS for all routes
-CORS(app)
+CORS(app)  # Enable CORS for all routes
 
 # Database setup
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
@@ -19,12 +17,8 @@ db = SQLAlchemy(app)
 # Initialize migration
 migrate = Migrate(app, db)
 
-# Define a simple model as an example
-class Task(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    task = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.String(200), nullable=True)
+# Import routes after initializing app and db
+from routes import *
 
-# Run the app
 if __name__ == '__main__':
     app.run(debug=True)
