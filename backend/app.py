@@ -14,7 +14,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # Import the Task model from models.py after db initialization
-from backend.models import db, Task
+from .models import db, Task  # Use relative import here
 
 # Example route
 @app.route('/')
