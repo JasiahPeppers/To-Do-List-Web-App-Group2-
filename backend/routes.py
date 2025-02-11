@@ -1,51 +1,84 @@
-from flask import request, jsonify
-from models import db, Task
+from flask import Flask, jsonify, request
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
-def list_routes(app):  # Pass the app instance into the function
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
+db = SQLAlchemy(app)
 
-    # GET route - Fetch all tasks
-    @app.route('/tasks', methods=['GET'])
-    def get_tasks():
-        tasks = Task.query.all()
-        return jsonify([task.to_dictionary() for task in tasks])  # Use to_dictionary to return all task details
+class Task(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    task = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.String(500), nullable=True)  # Ensure description column is here
+    priority = db.Column(db.String(50), nullable=False)
+    status = db.Column(db.String(50), nullable=False, default='incomplete')
+    task_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    # POST route - Add a new task
-    @app.route('/tasks', methods=['POST'])
-    def add_task():
-        task_data = request.json
-        print(f"Received task data: {task_data}")  # Debugging line
+# Ensure the task table exists, with the description column
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
-        # Validate required fields
-        if not task_data.get('task') or not task_data.get('description'):
-            return jsonify({'message': 'Task and description are required'}), 400
+# Fetch all tasks
+@app.route('/tasks', methods=['GET'])
+def get_tasks():
+    tasks = Task.query.all()
+    return jsonify([{
+        'id': task.id,
+        'task': task.task,
+        'description': task.description,
+        'priority': task.priority,
+        'status': task.status,
+        'task_date': task.task_date
+    } for task in tasks])
 
-        # Create new task with priority and task date
-        new_task = Task(
-            task=task_data['task'],
-            description=task_data['description'],
-            priority=task_data.get('priority', 'Low'),  # Default to 'Low' if not provided
-            task_date=task_data.get('task_date')
-        )
-        db.session.add(new_task)
+# Add a new task
+@app.route('/tasks', methods=['POST'])
+def add_task():
+    data = request.get_json()
+    new_task = Task(
+        task=data['task'],
+        description=data['description'],
+        priority=data['priority']
+    )
+    db.session.add(new_task)
+    db.session.commit()
+    return jsonify({
+        'id': new_task.id,
+        'task': new_task.task,
+        'description': new_task.description,
+        'priority': new_task.priority,
+        'status': new_task.status,
+        'task_date': new_task.task_date
+    })
+
+# Edit task description
+@app.route('/tasks/<int:id>', methods=['PUT'])
+def update_task(id):
+    task = Task.query.get(id)
+    if task:
+        data = request.get_json()
+        task.description = data.get('description', task.description)
         db.session.commit()
-        return jsonify({'message': 'Task added'}), 201
+        return jsonify({
+            'id': task.id,
+            'task': task.task,
+            'description': task.description,
+            'priority': task.priority,
+            'status': task.status,
+            'task_date': task.task_date
+        })
+    return jsonify({'error': 'Task not found'}), 404
 
-    # PUT route - Mark a task as completed (change status field)
-    @app.route('/tasks/<int:task_id>/complete', methods=['PUT'])
-    def complete_task(task_id):
-        task = Task.query.get(task_id)
-        if task:
-            task.status = 'completed'  # Mark as completed by setting status to 'completed'
-            db.session.commit()
-            return jsonify({'message': 'Task marked as complete'})
-        return jsonify({'message': 'Task not found'}), 404
+# Delete a task
+@app.route('/tasks/<int:id>', methods=['DELETE'])
+def delete_task(id):
+    task = Task.query.get(id)
+    if task:
+        db.session.delete(task)
+        db.session.commit()
+        return jsonify({'message': 'Task deleted successfully'})
+    return jsonify({'error': 'Task not found'}), 404
 
-    # DELETE route - Delete a task
-    @app.route('/tasks/<int:task_id>', methods=['DELETE'])
-    def delete_task(task_id):
-        task = Task.query.get(task_id)
-        if task:
-            db.session.delete(task)
-            db.session.commit()
-            return jsonify({'message': 'Task deleted'})
-        return jsonify({'message': 'Task not found'}), 404
+if __name__ == "__main__":
+    app.run(debug=True)
