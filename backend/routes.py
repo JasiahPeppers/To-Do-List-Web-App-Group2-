@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from models import db, Task
 
-    def list_routes(app):  # Pass the app instance into the function
+def list_routes(app):  # Pass the app instance into the function
 
     # GET route - Fetch all tasks
     @app.route('/tasks', methods=['GET'])
@@ -19,10 +19,11 @@ from models import db, Task
         if not task_data.get('task') or not task_data.get('description'):
             return jsonify({'message': 'Task and description are required'}), 400
 
+        # Create new task with priority and task date
         new_task = Task(
             task=task_data['task'],
             description=task_data['description'],
-            priority=task_data.get('priority'),
+            priority=task_data.get('priority', 'Low'),  # Default to 'Low' if not provided
             task_date=task_data.get('task_date')
         )
         db.session.add(new_task)
@@ -34,7 +35,7 @@ from models import db, Task
     def complete_task(task_id):
         task = Task.query.get(task_id)
         if task:
-            task.status = False  # Mark as completed by setting status to False
+            task.status = 'completed'  # Mark as completed by setting status to 'completed'
             db.session.commit()
             return jsonify({'message': 'Task marked as complete'})
         return jsonify({'message': 'Task not found'}), 404
