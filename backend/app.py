@@ -14,7 +14,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # Import the Task model from models.py after db initialization
-from models import Task  # Correctly import the Task model
+from .models import db, Task
 
 # Example route
 @app.route('/')
