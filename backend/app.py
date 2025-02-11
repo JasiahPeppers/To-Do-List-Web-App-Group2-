@@ -1,9 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_cors import CORS  # <-- Import CORS
 import os
 
 app = Flask(__name__)
+
+# Enable CORS
+CORS(app)  # Allow cross-origin requests
 
 # Database setup
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
