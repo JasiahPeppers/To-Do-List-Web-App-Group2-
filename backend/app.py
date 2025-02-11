@@ -1,11 +1,12 @@
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS 
 from flask_migrate import Migrate
 from models import db, Task  # Import the Task model after db initialization
 
 # Initialize Flask app
 app = Flask(__name__)
-
+CORS(app)
 # Configure SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Optional but good practice
