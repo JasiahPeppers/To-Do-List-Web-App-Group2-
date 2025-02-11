@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 
-# Initialize db globally
+# Initialize db globally (no need to initialize app here)
 db = SQLAlchemy()
 
 class Task(db.Model):
@@ -11,7 +11,7 @@ class Task(db.Model):
     task = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(255), nullable=True)
     priority = db.Column(db.String(50), nullable=True)
-    status = db.Column(db.Boolean, default=True)  # Default to True (e.g., task is active)
+    status = db.Column(db.Boolean, default=True)  # Default to True (task is active)
     task_date = db.Column(db.String(20), nullable=True)
 
     def __init__(self, task, description=None, priority=None, status=True, task_date=None):
