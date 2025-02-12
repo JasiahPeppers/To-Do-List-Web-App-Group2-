@@ -27,7 +27,6 @@ class Task(db.Model):
     def __init__(self, task, description=None, priority=None, status=True, task_date=None):
         self.task = task
         self.description = description
-        self.priority = priority
         self.status = status
         self.task_date = task_date
 
@@ -39,7 +38,6 @@ class Task(db.Model):
             "id": self.id,
             "task": self.task,
             "description": self.description,
-            "priority": self.priority,
             "status": self.status,
             "task_date": self.task_date
         }
