@@ -9,7 +9,7 @@ class Task(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     task = db.Column(db.String(50), nullable=False)
-    description = db.Column(db.String(255), nullable=True)
+    description = db.Column(db.String(155), nullable=True)
     priority = db.Column(db.String(50), nullable=True)
     status = db.Column(db.Boolean, default=True)  # Default to True (task is active)
     task_date = db.Column(db.String(20), nullable=True)
